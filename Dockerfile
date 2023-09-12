@@ -1,5 +1,5 @@
 # Use the directus base image
-FROM index.docker.io/directus/directus:latest
+FROM directus/directus:latest
 
 # Set environment variables
 ENV NODE_OPTIONS=--max-old-space-size=8192
