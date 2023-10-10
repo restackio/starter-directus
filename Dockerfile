@@ -1,5 +1,5 @@
 # Use the directus base image
-FROM directus:latest
+FROM directus/directus:v10.6.3
 
 # Set environment variables
 ENV NODE_OPTIONS=--max-old-space-size=8192
