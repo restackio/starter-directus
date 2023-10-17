@@ -1,31 +1,29 @@
-# Use the directus base image
-FROM directus/directus:v10.6.3
+# Use the Directus base image
+FROM directus/directus:latest
 
-# Set environment variables
-ENV NODE_OPTIONS=--max-old-space-size=8192
+# Set environment variables with default values
+ENV DB_CLIENT="sqlite3"
+ENV DB_FILENAME="/directus/database/database.sqlite"
+ENV EXTENSIONS_PATH="/directus/extensions"
+ENV STORAGE_LOCAL_ROOT="/directus/uploads"
+ENV NODE_ENV="production"
+ENV NPM_CONFIG_UPDATE_NOTIFIER="false"
 
-# Copy project files
+# Set NODE_OPTIONS (can be overridden at runtime)
+ARG NODE_OPTIONS="--max-old-space-size=8192"
+
+# Set Directus Configuration (can be overridden at runtime)
+# ARG DIRECTUS_CONFIG_JSON="{\"app_url\": \"http://localhost:8055\", ...}"
+
+# Copy any custom files or configurations
 WORKDIR /directus
-COPY package.json pnpm-lock.yaml ./
-COPY . .
 
-# Create the production image
-FROM node:18-alpine AS runtime
+# Build the Directus application (if needed)
+# RUN pnpm build
 
-USER node
-WORKDIR /directus
+# Expose the port (can be overridden at runtime)
 EXPOSE 8055
 
-# Set environment variables
-ENV DB_CLIENT="sqlite3" \
-    DB_FILENAME="/directus/database/database.sqlite" \
-    EXTENSIONS_PATH="/directus/extensions" \
-    STORAGE_LOCAL_ROOT="/directus/uploads" \
-    NODE_ENV="production" \
-    NPM_CONFIG_UPDATE_NOTIFIER="false"
+# Define the entry point to run Directus with configurable options
+ENTRYPOINT ["pnpm", "directus", "start", "--"]
 
-# Copy the built Directus app from the builder stage
-COPY --from=builder --chown=node:node /directus/dist .
-
-# Bootstrap and start Directus
-CMD node /directus/cli.js bootstrap && node /directus/cli.js start
