@@ -9,6 +9,9 @@ ENV STORAGE_LOCAL_ROOT="/directus/uploads"
 ENV NODE_ENV="production"
 ENV NPM_CONFIG_UPDATE_NOTIFIER="false"
 
+# Install pnpm and set up the PATH
+RUN curl -f https://get.pnpm.io/install.sh | sh
+ENV PATH="/root/.pnpm-global/bin:$PATH"
 # Set NODE_OPTIONS
 ENV NODE_OPTIONS="--max-old-space-size=8192"
 
