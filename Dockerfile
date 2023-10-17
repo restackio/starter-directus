@@ -13,17 +13,10 @@ ENV NPM_CONFIG_UPDATE_NOTIFIER="false"
 ENV NODE_OPTIONS="--max-old-space-size=8192"
 
 # Set Directus Configuration (if needed)
-# ENV DIRECTUS_CONFIG_JSON="{\"app_url\": \"http://localhost:8055\", ...}"
-
-# Copy any custom files or configurations
-WORKDIR /directus
-# Copy your files
+# ENV DIRECTUS_CONFIG_JSON="{\"app_url\": \"http://localhost:8055\", ...}
 
 # Expose the port
 EXPOSE 8055
-
-# Specify the user
-USER root
 
 # Define the entry point to run Directus
 ENTRYPOINT ["pnpm", "directus", "start", "--"]
