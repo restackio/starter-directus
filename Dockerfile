@@ -11,7 +11,8 @@ ENV NODE_ENV="production"
 
 # Set NODE_OPTIONS
 ENV NODE_OPTIONS="--max-old-space-size=8192"
-
+# Install Directus globally
+RUN pnpm install -g directus
 # Set Directus Configuration (if needed)
 # ENV DIRECTUS_CONFIG_JSON="{\"app_url\": \"http://localhost:8055\", ...}
 
