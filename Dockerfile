@@ -1,8 +1,6 @@
 # Use the Directus base image
 FROM directus/directus:latest
-USER node
 
-WORKDIR /directus
 # Set environment variables
 ENV DB_CLIENT="sqlite3"
 ENV DB_FILENAME="/directus/database/database.sqlite"
