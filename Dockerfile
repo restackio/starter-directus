@@ -2,7 +2,7 @@
 FROM directus/directus:latest
 
 # Set environment variables
-NV DIRECTUS_CACHE_ENABLED="false"
+ENV DIRECTUS_CACHE_ENABLED="false"
 ENV DIRECTUS_STORAGE_ADAPTER="local"
 ENV DIRECTUS_RATELIMIT_ENABLED="false"
 ENV STORAGE_LOCAL_ROOT="false"
