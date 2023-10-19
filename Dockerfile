@@ -2,10 +2,10 @@
 FROM directus/directus:latest
 
 # Set environment variables
-ENV DB_CLIENT="sqlite3"
-ENV DB_FILENAME="/directus/database/database.sqlite"
-ENV EXTENSIONS_PATH="/directus/extensions"
-ENV STORAGE_LOCAL_ROOT="/directus/uploads"
+NV DIRECTUS_CACHE_ENABLED="false"
+ENV DIRECTUS_STORAGE_ADAPTER="local"
+ENV DIRECTUS_RATELIMIT_ENABLED="false"
+ENV STORAGE_LOCAL_ROOT="false"
 ENV NODE_ENV="production"
 
 # Set NODE_OPTIONS
@@ -16,6 +16,3 @@ ENV NODE_OPTIONS="--max-old-space-size=8192"
 
 # Expose the port
 EXPOSE 8055
-
-# Define the entry point to run Directus
-ENTRYPOINT ["directus", "start", "--"]
