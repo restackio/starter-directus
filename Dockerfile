@@ -1,18 +1,13 @@
-# Use the Directus base image
-FROM directus/directus:latest
 
-# Set environment variables
-ENV DIRECTUS_CACHE_ENABLED=""
-ENV DIRECTUS_STORAGE_ADAPTER="local"
-ENV DIRECTUS_RATELIMIT_ENABLED=""
-ENV STORAGE_LOCAL_ROOT=""
-ENV NODE_ENV="production"
+ARG RESTACK_PRODUCT_VERSION=latest
 
-# Set NODE_OPTIONS
-ENV NODE_OPTIONS="--max-old-space-size=8192"
+FROM directus/directus:${RESTACK_PRODUCT_VERSION}
 
-# Set Directus Configuration (if needed)
-# ENV DIRECTUS_CONFIG_JSON="{\"app_url\": \"http://localhost:8055\", ...}
+USER root
+RUN corepack enable \
+  && corepack prepare pnpm@8.9.0 --activate
 
-# Expose the port
-EXPOSE 8055
+USER node
+# RUN pnpm install directus-extension-package-name // Replace package-name
+
+COPY ./extensions ./directus/extensions
